@@ -2,12 +2,49 @@
 
 {% extends  'base.html'  %}
 
+ {% block content %} 
 
- {% block content %}
+<br/>
 
-<h1>
-	Aspire to Inspire before you Expire!!
-</h1>
+ 
+{% if api %}
+	{% if api == "Error..."%}
+		There was an error, please try again...
+	{% else %}
+		<div class="jumbotron">
+		  <h1 class="display-4">{{ api.0.Category.Name }}</h1>
+		  <p class="lead">{{ api.0.ReportingArea }} Air Quality : {{ api.0.AQI }} </p>
+		  <hr class="my-4">
+		  {% if api.0.Category.Name == "Good" %}
+		  	<p>(0-50) Air quality is considered satisfactory, and air pollution poses little or no risk.</p>
+		  	<a class="btn btn-success btn-lg" href="#" role="button">Learn more</a>
+
+		  {% elif api.0.Category.Name == "Moderate" %}
+		  	<p>(51-100) Air quality is acceptable, however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.</p>
+		  	<a class="btn btn-secondary btn-lg" href="#" role="button">Learn more</a>
+
+		  {% elif api.0.Category.Name == "Unhealthy for Sensitive Groups" %}
+		  	<p>(101-150) Although general public is not likely to be affected at this AQI range, people with lung disease, older adults and children are at greater risk from exposure to ozone, whereas persons with hearth and lung disease, older adults and children are at greater risk from the presence of particles in the air.</p>
+		  	<a class="btn btn-warning btn-lg" href="#" role="button">Learn more</a>
+
+		  {% elif api.0.Category.Name == "Unhealthy" %}
+		  	<p>(151-200) Every one may begin to experience health effects; members of sensitive groups may experience more serious health effects.</p>
+		  	<a class="btn btn-info btn-lg" href="#" role="button">Learn more</a>
+
+		  {% elif api.0.Category.Name == "Very Unhealthy" %} 
+		  	<p>(201-300) Health alert: everyone may experience more serious health effects.</p>
+		  	<a class="btn btn-danger btn-lg" href="#" role="button">Learn more</a>
+
+		  {% elif api.0.Category.Name == "Hazardous" %}
+		  	<p>(301-500) Health warnings of emergency conditions.The entire population is more likely to be affected.</p>
+		  	<a class="btn btn-dark btn-lg" href="#" role="button">Learn more</a>
+ 
+		  {% endif %} 
+		</div>
+
+	{% endif %}
+{% endif %}
+
 
 {% endblock %}
  
